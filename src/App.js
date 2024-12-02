@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+
+  const handleName = (event) => {
+    setName(event.target.value);
+  };
+
+  const handleButton = () => {
+    const trimmedName = name.trim();
+
+    if (trimmedName) {
+      alert(`Welcome, ${trimmedName}!`);
+      setDisplayName(trimmedName);
+      setName("");
+    } else {
+      alert("Please enter a name");
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App-body">
+        <h2>Welcome Application</h2>
+        <div className="Main-box">
+          <div className="input-container">
+            <input
+              type="text"
+              className="centered-input"
+              placeholder="Enter your Name"
+              value={name}
+              onChange={handleName}
+            />
+            {displayName && (
+              <p className="name-display">Hello, {displayName}!</p>
+            )}
+            <button
+              className="submit-button"
+              onClick={handleButton}
+              disabled={!name.trim()}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
